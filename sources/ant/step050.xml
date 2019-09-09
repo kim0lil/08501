@@ -1,0 +1,31 @@
+<project default="dist" basedir="./step039">
+
+    <target name="clean">
+        <delete dir="${basedir}/classes"/>
+    </target>
+
+    <target name="init">
+        <mkdir dir="${basedir}/classes"/>
+        <mkdir dir="${basedir}/target"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${basedir}" destdir="${basedir}/classes"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${basedir}/target/HelloJar.jar">
+            <fileset dir="${basedir}/classes">
+                <include name="*.class" />
+            </fileset>
+            <manifest>
+                <attribute name="Main-Class" value="Bootstrap"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="dist" depends="jar, clean">
+        <move file="${basedir}/target/HelloJar.jar" todir="${basedir}" />
+
+    </target>
+</project>

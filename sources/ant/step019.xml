@@ -1,0 +1,17 @@
+<project default="copy">
+
+    <target name="GroupA">
+        <echo message="i'm Dist Group" />
+    </target>
+
+    <target name="GroupB">
+        <echo message="i'm Risk Group" />
+    </target>
+
+    <target name="build" depends="GroupB">
+        <echo file="./dist/history.log" message="Hello Ant Depends"/>
+    </target>
+
+    <target name="copy" depends="build,GroupB,GroupA">
+    </target>
+</project>

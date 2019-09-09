@@ -1,0 +1,14 @@
+<project default="jar">
+    <target name="clean">
+        <delete dir="step054_build" />
+    </target>
+    <target name="init">
+        <mkdir dir="step054_build" />
+    </target>
+    <target name="compile" depends="init">
+        <javac srcdir="step054" destdir="step054_build"/>
+    </target>
+    <target name="jar" depends="compile">
+        <jar basedir="step054_build" destfile="step054_target/step.jar"/>
+    </target>
+</project>

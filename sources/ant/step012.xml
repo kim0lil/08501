@@ -1,0 +1,6 @@
+<project default="default">
+    <property file="./step12.property"/>
+    <target name="default">
+        <echo message="${userName} - Hello Ant Build Tools ~ !!\\n"/>
+    </target>
+</project>

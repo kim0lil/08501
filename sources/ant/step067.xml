@@ -1,0 +1,4 @@
+<project default="war">
+    <target name="war">
+    </target>
+</project>

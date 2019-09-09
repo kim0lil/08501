@@ -1,0 +1,13 @@
+<project default="install">
+    <target name="init">
+        <echo>init build directory</echo>
+        <mkdir dir="./build"/>
+    </target>
+    <target name="build" depends="init">
+        <echo>Build Start</echo>
+        <javac srcdir="./" includes="*.java" destdir="./build"/>
+    </target>
+    <target name="install">
+        
+    </target>
+</project>

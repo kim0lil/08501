@@ -1,0 +1,81 @@
+<project default="war" basedir="step065">
+
+    <!-- 웹 루트-->
+    <property name="wRoot" value="${basedir}/webapp" />
+
+    <!-- 자바 root -->
+    <property name="jRoot" value="${basedir}/java" />
+
+    <!-- 자바 리소스 root -->
+    <property name="rRoot" value="${basedir}/resources" />
+
+    <!-- 기본 빌드할 경로 -->
+    <property name="build" value="step065_build" />
+
+    <!-- war파일을 작성할 경로 -->
+    <property name="target" value="step065_target" />
+
+    <!-- war 파일의 파일명-->
+    <property name="wFile" value="0.0.1-snapshot" />
+
+    <path id="classpath">
+
+        <!-- 클래스 패스를 정의 -->
+        <pathelement location="${jRoot}" />
+
+        <!-- 라이브러리를 대상으로 클래스 패스를 정의 -->
+        <pathelement path="${wRoot}/WEB-INF/lib/" />
+
+        <!-- 파일셋을 사용하여 클래스 패스를 정의 -->
+        <fileset dir="${basedir}/tomcat/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+
+    <!-- 0. 초기화 처리 합니다. -->
+    <target name="init">
+        <mkdir dir="${build}"/>
+        <mkdir dir="${build}/WEB-INF/classes"/>
+        <mkdir dir="${target}"/>
+    </target>
+
+
+    <!-- 5. 빌드 후 처리 -->
+    <target name="clean">
+        <delete dir="${build}"/>
+    </target>
+
+    <!-- 1. 웹 정적 자원을 복사 합니다. -->
+    <target name="web">
+
+        <copy todir="${build}">
+            <fileset dir="${wRoot}" />
+        </copy>
+    </target>
+
+
+    <!-- 2. java파일을 컴파일 한 다음 WEB-INF/classes 폴더로 이동 -->
+    <target name="compile">
+
+        <javac srcdir="${jRoot}" destdir="${build}/WEB-INF/classes" classpathref="classpath" />
+
+    </target>
+
+    <!-- 3. java 리소스 파일을 복사 하여 자바가 구동 할 수 있도록 설정 파일을 등록 -->
+    <target name="copy">
+
+        <copy todir="${build}/WEB-INF/classes">
+            <fileset dir="${rRoot}" />
+        </copy>
+
+    </target>
+
+    <!-- 4. war 패키징 -->
+    <target name="war" depends="init,web,compile,copy,clean">
+
+        <war basedir="${build}" destfile="${target}/${wFile}.war" needxmlfile="no"/>
+
+    </target>
+
+</project>

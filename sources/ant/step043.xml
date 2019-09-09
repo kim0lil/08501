@@ -1,0 +1,20 @@
+<project default="jar" basedir="./step039">
+
+    <target name="clean">
+        <mkdir dir="${basedir}/dest"/>
+    </target>
+
+    <target name="init" depends="clean">
+        <mkdir dir="${basedir}/classes"/>
+        <mkdir dir="${basedir}/target"/>
+        <mkdir dir="${basedir}/dest"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${basedir}/src" destdir="${basedir}/dest"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        
+    </target>
+</project>

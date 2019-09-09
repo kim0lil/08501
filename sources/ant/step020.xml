@@ -1,0 +1,8 @@
+<project default="copy">
+    <target name="build">
+        <echo file="./dist/history.log" message="Hello Ant Depends"/>
+    </target>
+    <target name="copy" depends="build">
+        <copy>
+    </target>
+</project>

@@ -1,0 +1,7 @@
+<project default="jar">
+    <target name="compile">
+
+    </target>
+    <target name="jar" depends="compile">
+    </target>
+</project>

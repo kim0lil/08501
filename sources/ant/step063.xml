@@ -1,0 +1,20 @@
+<project default="dist">
+
+    <property name="buildpath" value="step062_build" />
+    <property name="src" value="step062" />
+    <property name="targetpath" value="step062_target"/>
+
+    <target name="clean">
+        <delete dir="${buildpath}" />
+    </target>
+    <target name="init">
+        <mkdir dir="${buildpath}" />
+    </target>
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${buildpath}"/>
+    </target>
+    <target name="jar" depends="compile">
+        <jar basedir="${buildpath}" destfile="${targetpath}/step.jar"/>
+    </target>
+    <target name="dist" depends="jar,clean" />
+</project>

@@ -1,0 +1,4 @@
+<project default="jar" basedir="./step039">
+    <target name="jar">
+    </target>
+</project>

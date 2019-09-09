@@ -1,0 +1,4 @@
+<project default="default">
+    <target name="default">
+    </target>
+</project>

@@ -1,0 +1,9 @@
+<project default="build">
+    <target name="init">
+        <echo>init build directory</echo>
+    </target>
+    <target name="build" depends="init">
+        <echo>Build Start</echo>
+        <javac srcdir="./" includes="*.java" destdir="./build"/>
+    </target>
+</project>

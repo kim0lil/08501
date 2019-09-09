@@ -1,0 +1,4 @@
+<project default="jar">
+    <target name="jar">
+    </target>
+</project>

@@ -1,0 +1,6 @@
+<project default="default">
+    <property name="userName" value="Justin Hanry"/>
+    <target name="default">
+        <echo file="./dist/history.log" append="true" message="${userName} - Hello Ant Build Tools ~ !!"/>
+    </target>
+</project>

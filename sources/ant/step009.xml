@@ -1,0 +1,6 @@
+<project default="default">
+    <property name="userName"/>
+    <target name="default">
+        <echo message="Hello Ant Build Tools ~ !!"/>
+    </target>
+</project>

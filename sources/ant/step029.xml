@@ -1,0 +1,6 @@
+<project default="build">
+    <target name="build">
+        <echo>Build Start</echo>
+        <javac srcdir="./" includes="*.java" destdir="./build"/>
+    </target>
+</project>
