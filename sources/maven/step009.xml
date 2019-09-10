@@ -1,0 +1,35 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.education.maven</groupId>
+    <artifactId>chap1</artifactId>
+    <version>0.0.1-BETA</version>
+    <name>Maven-Education-With-Leejinhyeok</name>
+    <description>Hello Maven Project Manager</description>
+
+<build>
+    <plugins>
+        <plugin>
+        <groupId>com.soebes.maven.plugins</groupId>
+        <artifactId>echo-maven-plugin</artifactId>
+        <version>0.3.0</version>
+        <executions>
+            <execution>
+            <phase>initialize</phase>
+            <goals>
+                <goal>format</goal>
+                <goal>echo</goal>
+            </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <formats>
+                <format>%s-</format>
+            </formats>
+            <echos>
+                <echo>This is the Text which will be printed out.</echo>
+            </echos>
+        </configuration>
+        </plugin>
+    </plugins>
+</build>
+</project>
