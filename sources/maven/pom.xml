@@ -1,0 +1,31 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.education.maven</groupId>
+    <artifactId>chap1</artifactId>
+    <version>0.0.1-BETA</version>
+    <name>Maven-Education-With-Leejinhyeok</name>
+    <description>Hello Maven Project Manager</description>
+
+<build>
+    <plugins>
+        <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.1</version>
+        <executions>
+            <execution> 
+                <id>id.echo</id>
+                <phase>test</phase>
+                <goals><goal>run</goal></goals>
+                <configuration>
+                    <skip>true</skip>
+                    <target>
+                        <echo>Hello Maven Ant</echo>
+                    </target>
+                </configuration>
+            </execution>
+        </executions>
+        </plugin>
+    </plugins>
+</build>
+</project>

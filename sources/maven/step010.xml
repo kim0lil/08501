@@ -15,7 +15,13 @@
 
     <!-- 플러그인을 등록 할 수 있는 공간 -->
     <build>
-        <plugin/>
+        <plugins>
+            <plugin>
+                <artifactId>com.soebes.maven.plugins</artifactId>
+                <groupId>cho-maven-plugin</groupId>
+                <version>0.3.0</version>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

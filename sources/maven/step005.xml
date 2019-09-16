@@ -6,5 +6,7 @@
     <name>Maven-Education-With-Leejinhyeok</name>
     <description>Hello Maven Project Manager</description>
 
-    <build />
+    <!-- 설정 값을 등록 할 수 있는 공간 -->
+    <properties/>
+    
 </project>
