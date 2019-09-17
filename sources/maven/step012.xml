@@ -1,0 +1,31 @@
+<project>
+        <modelVersion>4.0.0</modelVersion>
+        <groupId>org.education.maven</groupId>
+        <artifactId>chap1</artifactId>
+        <version>0.0.1-BETA</version>
+        <name>Maven-Education-With-Leejinhyeok</name>
+        <description>Hello Maven Project Manager</description>
+    
+    
+        <!-- 설정 값을 등록 할 수 있는 공간 -->
+        <properties/>
+    
+        <!-- 의존성을 등록 할 수 있는 공간 -->
+        <dependencies />
+    
+        <!-- 플러그인을 등록 할 수 있는 공간 -->
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+
+                    <executions>
+                        <execution />
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    
+    </project>

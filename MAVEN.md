@@ -99,34 +99,80 @@ maven을 사용하는 이유는 아래와 같습니다.
 
 ## echo
 
-메시지를 출력 하기 위해서는 `echo` 플러그인을 사용 하여아 하며
+메시지를 출력 하기 위해서는 `echo` 플러그인을 사용 해야 합니다.
 
-이 플러그인을 사용하기 위해서는 `build` 태그를 구성 한 다음 `plugin` 태그를 사용하여 플러그인을 사용 하겠다고 선언 합니다.
+이 플러그인을 사용하기 위해서는 플러그인을 통합 관리하는 `build` 태그를 구성 한 다음 
+
+`plugin` 태그를 사용하여 플러그인을 사용 하겠다고 선언 합니다.
 
 [소스 보기](./sources/maven/step008.xml)
 
-하나의 `build` 태그에서 하나 이상의 `plugin`이 선언 되어 관리 되기 때문에 `plugin` 태그를 감싸는 `plugins` 태그를 추가합니다.
+하나의 `build` 태그에서 여러개의 `plugin`이 선언 되어 관리 되기 때문에 `plugin` 태그를 감싸는 `plugins` 태그를 추가합니다.
 (`plugin`은 여러 사용자에게 제공 받을 수 있으며 커스텀 하게도 사용할 수 있습니다.[커스텀 플러그인은 다음 장에서 다루어 보겠습니다.])
 
 [소스 보기](./sources/maven/step009.xml)
 
 현재 우리는 간단한 플러그인으로 `echo` 플러그인을 사용하여 `echo` 기능을 사용해 보도록 하겠습니다.
 
-이 플러그인은 `soebes`에서 제공하는 플러그인이며 각 프로젝트는 식별할 수 있는 고유 값을 가지고 있다고 말한 적이 있었을 것입니다
+`echo`는 이전에`ant` 을 공부한 것을 토대로 `ant` 를 사용할 수 있는 `antrun` 플러그인을 사용하여 작성해 보겠습니다.
 
-이 고유 값은 아래와 같은 `groupId`에 `artifactId`의 `version`으로 알 수 있습니다.
+먼저 플러그인을 사용하기 위해서는 고유한 아이디를 등록 해야 합니다.
 
-- - -
+이 고유한 아이디는 groupId와 artifactId 그리고 version으로 구분 된다고 한적이 있습니다.
 
-groupId : com.soebes.maven.plugins
-
-artifactId : cho-maven-plugin
-
-version : 0.3.0
+그렇다면 먼저 `antrun` 을 사용하기 위한 고유 정보를 아래와 같이 등록해 보도록 하겠습니다.
 
 - - -
 
-따라서 `plugin`에 각 값을 등록 합니다.
+groupId : org.apache.maven.plugins
+
+artifactId : maven-antrun-plugin
+
+version : 1.8
+
+- - -
+
+따라서 앞서 작성한 `plugin` 에 각 고유한 값을 등록 합니다.
 
 [소스 보기](./sources/maven/step010.xml)
+
+각 플러그인은 하나 이상 실행 할 수 있도록 작성되며
+
+이 플러그인에서 실행 가능한 영역을 작성하는 공간을
+
+`execution` 이라고 합니다.
+
+따라서 `execution` 을 등록 해 보도록 하겠습니다.
+
+[소스 보기](./sources/maven/step011.xml)
+
+`execution` 은 하나 이상 작성 될 수 있으므로 각 `execution` 태그를 감싸는 `executions` 태그를 사용하여 묶어 주도록 합니다.
+
+[소스 보기](./sources/maven/step012.xml)
+
+이제 실행 가능한 소스를 등록해 줄 차례 입니다.
+
+실행 가능한 소스를 등록 하기 위해서는 `antrun` 플러그인에게 실행 가능한 코드를 넘겨 줘야 합니다.
+
+이 와 같이 플러그인의 설정이 필요 한 경우 `configuration` 태그를 사용 하여 플러그인의 설정을 알릴 수 있습니다.
+
+[소스 보기](./sources/maven/step013.xml)
+
+그렇다면 이제 `ant` 문법을 사용하여 `Hello Ant In Maven` 이라는 출력을 해 보도록 하겠습니다.
+
+[소스 보기](./sources/maven/step014.xml)
+
+마지막으로 외부에서 우리가 작성한 코드가 실행 가능 하도록 실행 구문에 고유 `id` 를 등록 하겠습니다.
+
+[소스 보기](./sources/maven/step015.xml)
+
+이제 콘솔창(cmd)을 실행한 다음 해당 파일에 있는 곳에 간 다음 `mvn`명령어를 사용하여 메이븐을 실행해 봅니다.
+
+```cmd
+mvn -f step015.xml antrun:run@echo-in-maven
+```
+
+<< 이미지 1-1. 첫 메이븐 실행 >>
+
+![이미지](./sources/maven/images/001.png)
 

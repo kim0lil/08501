@@ -17,9 +17,9 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>com.soebes.maven.plugins</artifactId>
-                <groupId>cho-maven-plugin</groupId>
-                <version>0.3.0</version>
+                <artifactId>org.apache.maven.plugins</artifactId>
+                <groupId>maven-antrun-plugin</groupId>
+                <version>1.8</version>
             </plugin>
         </plugins>
     </build>
