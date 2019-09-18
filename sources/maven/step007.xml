@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.education.maven</groupId>
     <artifactId>chap1</artifactId>
-    <version>0.0.1-BETA</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>Maven-Education-With-Leejinhyeok</name>
     <description>Hello Maven Project Manager</description>
 
