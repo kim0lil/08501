@@ -1,0 +1,28 @@
+<project default="deploy">
+
+    <!-- 프로젝트를 초기화 하는 스크립트 -->
+    <target name="init">
+        ...
+    </target>
+
+    <!-- 빌드 시 필요한 리소스를 해제하는 스크립트 -->
+    <target name="clean">
+        ...
+    </target>
+
+    <!-- 자바를 컴파일 하는 스크립트 -->
+    <target name="compile" depends="init">
+        ...
+    </target>
+
+    <!-- 클래스 리소스와 웹 리소스를 패키징 하는 스크립트 -->
+    <target name="package" depends="compile">
+        ...
+    </target>
+
+    <!-- 프로젝트를 배포 하는 스크립트 -->
+    <target name="deploy" depends="package">
+        ...
+    </target>
+
+</project>
