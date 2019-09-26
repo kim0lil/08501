@@ -1,8 +1,11 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.education.plugins</groupId>
-    <artifactId>org-education-ant</artifactId>
+    <name>Maven-Resolvation</name>
+    <groupId>net.maven.resolvation</groupId>
+    <artifactId>resolvation</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <description>테스트 입니다.</description>
+    
     <build>
         <plugins>
             <plugin>
@@ -11,14 +14,13 @@
                 <version>1.8</version>
                 <executions>
                     <execution>
-                        <id>test</id>
-                        <phase>test</phase>
+                        <phase>validate</phase>
                         <goals>
-                                <goal>test</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
-                        <target>
-                                <echo message="#{sourceRoot}/Hello Maven Plugin"/>
+                            <target>
+                                <echo message="Hello Ant In Maven"/>
                             </target>
                         </configuration>
                     </execution>

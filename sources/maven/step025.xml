@@ -1,24 +1,21 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.education.plugins</groupId>
-    <artifactId>org-education-ant</artifactId>
+    <groupId>org.education.example</groupId>
+    <artifactId>education-maven</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>1.8</version>
+
                 <executions>
                     <execution>
-                        <id>test</id>
-                        <phase>test</phase>
-                        <goals>
-                                <goal>test</goal>
-                        </goals>
                         <configuration>
-                        <target>
-                                <echo message="#{sourceRoot}/Hello Maven Plugin"/>
+                            <target>
+                                <echo message="phase execution" />
                             </target>
                         </configuration>
                     </execution>

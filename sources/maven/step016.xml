@@ -16,6 +16,11 @@
     </target>
 
     <!-- 클래스 리소스와 웹 리소스를 패키징 하는 스크립트 -->
+    <target name="dist" depends="compile">
+        ...
+    </target>
+
+    <!-- 클래스 리소스와 웹 리소스를 패키징 하는 스크립트 -->
     <target name="package" depends="compile">
         ...
     </target>

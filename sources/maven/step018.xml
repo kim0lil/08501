@@ -1,0 +1,5 @@
+<project>
+    <groupId>org.education.example</groupId>
+    <artifactId>education-maven</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+</project>

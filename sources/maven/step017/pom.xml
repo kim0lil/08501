@@ -1,0 +1,25 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>simple.maven.plugins</groupId>
+    <artifactId>simple-maven-plugin</artifactId>
+    <version>0.0.1</version>
+    <packaging>maven-plugin</packaging>
+    <dependencies>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                    <groupId>org.education</groupId>
+                    <artifactId>testPlugin</artifactId>
+                    <version>0.0.1</version>
+                    <executions>
+                        <execution>
+                            <goals><goal>run</goal></goals>
+                            <phase>validate</phase>
+                        </execution>
+                    </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
