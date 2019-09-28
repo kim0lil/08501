@@ -1,0 +1,8 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.education.maven</groupId>
+    <artifactId>maven-education</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <build/>
+</project>

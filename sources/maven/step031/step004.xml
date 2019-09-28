@@ -1,6 +1,6 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.education.plugins</groupId>
-    <artifactId>org-education-ant</artifactId>
+    <groupId>org.education.maven</groupId>
+    <artifactId>maven-education</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 </project>

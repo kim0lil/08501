@@ -1,0 +1,17 @@
+<project default="goal-run">
+
+    <property name="goal" value="default"/>
+
+    <target name="goal-run">
+        <antcall target="${goal}-goal"/>
+    </target>
+
+    <target name="echo-goal">
+        <echo message="echo goal running!!"/>
+    </target>
+
+    <target name="default-goal">
+        <echo message="default goal running!!"/>
+    </target>
+
+</project>
