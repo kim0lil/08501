@@ -3,9 +3,8 @@
     <groupId>org.education.maven</groupId>
     <artifactId>maven-education</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+
     <build>
-        <sourceDirectory>src/java</sourceDirectory>
         <resources>
             <resource>
                 <directory>src/resources</directory>
@@ -27,22 +26,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.2</version>
-
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>
-                                dummy.HelloMaven
-                            </mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
         </plugins>
     </build>

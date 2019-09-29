@@ -571,4 +571,230 @@ help로 확인한 결과 `resources` 플러그인은 기본 리소스와 test리
 
 ![이미지](./sources/maven/images/006.png)
 
+구조를 보면 알 수 있듯이
 
+src 하위 디렉토리로 `java` 와 `resources` 를 가진 것을 확인 할 수 있습니다.
+
+그리고 `java` 디렉토리 아래로 `dummy` 디렉토리가 있으며
+
+`dummy` 디렉토리 아래로 자바 파일이 하나 있습니다.
+
+또한 `resources` 디렉토리 아래는 `configuration.properties` 파일이 있습니다.
+
+프로젝트는 단순히 `HelloMaven.java`에서 `configuration.properties` 파일을 불러와 출력 해 주는 역활을 하고 있습니다.
+
+그렇다면 이제 이 프로젝트를 하나하나 분석 하면서 메이븐의 기본 페이즈에 관해서 알아 가 보도록 하겠습니다.
+
+먼저 이 챕터에서 다룰 것은 `process-resourcs` 페이즈 입니다.
+
+`process-resources` 페이즈는 자바 파일을 제외한 모든 리소스를 로드 하는 페이즈 입니다.
+
+이 페이즈는 `maven-resources-plugin`이 기본 등록 되어 있으며
+
+기본 설정을 확인 하기 위해서는 `help:effective-pom` 메이븐의 골을 실행하여 확인 할 수 있습니다.
+
+<< 이미지 1-7. pom의 기본 설정 >>
+
+![이미지](./sources/maven/images/007.png)
+
+다시 돌아 가서 pom.xml에 `resources` 플러그인을 등록해 보겠습니다.
+
+([링크](https://maven.apache.org/plugins/maven-resources-plugin/index.html) 보기)
+
+[소스 보기](./sources/maven/step031/step007.xml)
+
+다음으로 pom의 기본 리소스의 설정은 `src/main/resources`로 되어 있습니다.
+
+이전 `effective-pom`에서 살펴 보면 아래와 같은 구문이 등록 되어 있을 것입니다.
+
+<< 이미지 1-8. basic resources >>
+
+![이미지](./sources/maven/images/008.png)
+
+이 프로젝트 구조는 전형적인 메이븐 구조로써 우리의 구조와는 맞지 않습니다.
+
+따라서 pom.xml 파일에서 직접 지정하여 리소스를 매핑 할 수 있습니다.
+
+[소스 보기](./sources/maven/step031/step008.xml)
+
+됬습니다.
+
+이제 `process-resources` 페이즈를 실행하여 결과를 확인 하세요.
+
+(phase:goal(resources:resources)을 사용하여 빌드를 할 수도 있습니다.)
+
+`target` 폴더가 새로 생긴것을 확인 할 수 있습니다.
+
+- - -
+target
+
+target은 메이븐의 기본 outputdirectory로 설정 되어 있는 빌드 루트 입니다.
+
+<< 이미지 1-9. target 설정 >>
+
+![이미지](./sources/maven/images/009.png)
+
+만일 빌드 구조를 변경 하고 싶다면 아래와 같이 빌드 구조를 변경 할 수 있습니다.
+
+[소스 보기](./sources/maven/step031/step009.xml)
+
+- - -
+
+<< 이미지 1-10. process-resources 결과물 >>
+
+![이미지](./sources/maven/images/010.png)
+
+만일 자바 파일에도 리소스가 등록 되어 있다면 아래와 같이
+
+자바 파일을 제외한 모든 리소스를 추가적으로 리소스에 등록 할 수 있습니다.
+
+[소스 보기](./sources/maven/step031/step010.xml)
+
+#### compile
+
+이번 페이즈는 `compile`입니다.
+
+`compile` 페이즈는 클래스 파일을 컴파일 하는 단계로써
+
+`.java` 파일을 `.class`파일로 변환하는 단계 입니다.
+
+기본 플러그인으로는 `maven-compiler-plugin`를 사용합니다.
+
+아래와 같이 플러그인을 추가 합니다.
+
+[소스 보기](./sources/maven/step031/step011.xml)
+
+다음으로 기본 설정을 확인하여 컴파일 할 경로를 확인 합니다.
+
+<< 이미지 1-11. java 경로 >>
+
+![이미지](./sources/maven/images/011.png)
+
+우리는 기본 경로를 해당 경로로 지정 하지 않을 것입니다.
+
+따라서 pom.xml에 경로를 추가해 주도록 하겠습니다.
+
+[소스 보기](./sources/maven/step031/step012.xml)
+
+이제 `compile` 페이즈를 실행하여 클래스가 잘 컴파일 되는지 확인 하세요.
+
+<< 이미지 1-12. .class compile >>
+
+![이미지](./sources/maven/images/012.png)
+
+#### process-test-resources
+
+이제 테스트를 검증해 볼 시간입니다.
+
+test를 하기위하여 새로운 폴더를 생성합니다.
+(step033 으로 생성하였습니다.)
+
+다음으로 `test` 폴더를 추가 하여 단위 테스트를 클래스를 추가 하며 `resources`는 프로젝트 리소스와 동일하게 처리 할 것입니다.
+
+<< 이미지 1-13. test-directory >>
+
+![이미지](./sources/maven/images/013.png)
+
+이제 테스트 리소르를 확인해 보도록 하겠습니다.
+
+기본 설정은 `프로젝트/디렉토리/test/resources`로 설정 되어 있을 것입니다.
+
+하지만 우리는 해당 경로를 변경하여 주도록 하겠습니다.
+
+<< 이미지 1-14. test-resources-directory >>
+
+![이미지](./sources/maven/images/014.png)
+
+[소스 보기](./sources/maven/step033/step001.xml)
+
+이제 `process-test-resources`를 실행하여 테스트 리소스를 복사 합니다.
+
+(`mvn -f step001.xml resources:testResources` 를 사용하여 단일로 빌드 할 수 있습니다.)
+
+<< 이미지 1-15. copy test resources >>
+
+![이미지](./sources/maven/images/015.png)
+
+#### test-compile
+
+리소스를 복사 하였으면 클래스를 컴파일 할 시간입니다.
+
+이전과 동일하게 컴파일할 기본 경로를 확인합니다.
+
+<< 이미지 1-16. test source directory >>
+
+![이미지](./sources/maven/images/016.png)
+
+이제 경로를 변경하여 주도록 하겠습니다.
+
+[소스 보기](./sources/maven/step033/step002.xml)
+
+이제 테스트 코드를 등록 하도록 하겠습니다.
+
+`test` 패키지에 `HelloMavenTest.java` 파일을 생성 한 다음 테스트를 실행합니다.
+
+(만일 테스트를 위하여 junit이 필요한 경우 pom.xml에 junit의 의존성을 추가 해 주도록 합니다.)
+
+[소스 보기](./sources/maven/step033/step003.xml)
+
+`test-compile` 페이즈를 사용하여 테스트 클래스를 컴파일 하도록 하겠습니다.
+
+<< 이미지 1-17. .class test sources >>
+
+![이미지](./sources/maven/images/017.png)
+
+#### test
+
+이제 테스트를 실행 합니다.
+
+테스트 실행은 `test` 페이즈를 사용하며 플러그인으로는 `surefire`를 기본적으로 사용합니다.
+
+<< 이미지 1-17. maven test를 실행 한 결과 >>
+
+![이미지](./sources/maven/images/017.png)
+
+만일 테스트를 실행 하지 않거나 아니면 에러 시에도 다음 단계로 넘어 가기 위해서는
+
+`skip` 속성을 `true`로 `skipTests`를 `true`로 하여 처리 할 수 있습니다.
+
+[소스 보기](./sources/maven/step033/step004.xml)
+
+#### package
+
+패키지는 리소스와 라이브러리 그리고 클래스 파일을 묶어 하나의 파일로 생성하는 단계 입니다.
+
+기본적으로 우리는 jar파일 구조를 지니고 있습니다.
+
+따라서 pom.xml에 packaging을 jar로 등록 하여 손쉽게 패키징 처리 할 수 있습니다.
+
+[소스 보기](./sources/maven/step033/step005.xml)
+
+하지만 우리는 추기적으로 실행 가능 하기 위한 mainfest를 생성하는 등 추가적인 작업을 할 것이기 때문에
+
+pom.xml에 plugin을 등록 하도록 합니다.
+
+[소스 보기](./sources/maven/step033/step006.xml)
+
+JAR파일을 우리가 원하는 공간에 출력 할 것이기 때문에 `outputDirectory` 를 추가로 등록 합니다.
+
+(경로는 D:\jars로 하겠습니다.)
+
+[소스 보기](./sources/maven/step033/step007.xml)
+
+이제 출력할 jar파일명을 `finalName` 을 사용햐여 등록 합니다.
+
+[소스 보기](./sources/maven/step033/step008.xml)
+
+<< 이미지 1-18. 생성 된 jar파일 >>
+
+![이미지](./sources/maven/images/018.png)
+
+다음으로 실행을 위한 manifest를 등록 합니다.
+
+[소스 보기](./sources/maven/step033/step009.xml)
+
+이제 패키징을 완료 한 다음 실행해 보도록 하겠습니다.
+
+<< 이미지 1-19. 실행 결과 확인 >>
+
+![이미지](./sources/maven/images/019.png)
