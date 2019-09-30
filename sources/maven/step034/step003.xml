@@ -1,0 +1,8 @@
+<project>
+    <groupId>org.education.maven</groupId>
+    <artifactId>education-maven</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>Maven Tool Guide</name>
+    <description>Basic Guide to Using Maven Tools</description>
+</project>

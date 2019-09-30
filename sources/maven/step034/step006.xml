@@ -1,0 +1,19 @@
+<project>
+        <modelVersion>4.0.0</modelVersion>
+    <groupId>org.education.maven</groupId>
+    <artifactId>education-maven</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>Maven Tool Guide</name>
+    <description>Basic Guide to Using Maven Tools</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

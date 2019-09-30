@@ -497,9 +497,15 @@ mvn -f step027.xml validate
 
 [소스 보기](./sources/maven/step031.xml)
 
-### 메이븐 페이즈의 기본 플러그인 설정
+#### 메이븐 페이즈의 기본 플러그인 설정
 
-이제 다시 돌아 가서 메이븐의 기본 라이프 사이클에 대해서 알아 보도록 하겠습니다.
+메이븐의 기본 플러그인에 대하여 살펴 보도록 하겠습니다.
+
+기본적으로 자주 사용하는 JAR와 WAR패키징을 통해서
+
+메이븐의 기본 라이프 사이클에 대하여 알아 보겠습니다.
+
+### JAR 패키징
 
 먼저 기본 폴더를 하나 생성 한 다음 메이븐 파일(pom.xml)을 만들어 보겠습니다.
 
@@ -759,6 +765,8 @@ test를 하기위하여 새로운 폴더를 생성합니다.
 
 [소스 보기](./sources/maven/step033/step004.xml)
 
+(테스트에 대한 더욱 자세한 항목은 [링크](https://maven.apache.org/surefire/maven-surefire-plugin/test-mojo.html)를 확인하세요)
+
 #### package
 
 패키지는 리소스와 라이브러리 그리고 클래스 파일을 묶어 하나의 파일로 생성하는 단계 입니다.
@@ -782,6 +790,7 @@ JAR파일을 우리가 원하는 공간에 출력 할 것이기 때문에 `outpu
 [소스 보기](./sources/maven/step033/step007.xml)
 
 이제 출력할 jar파일명을 `finalName` 을 사용햐여 등록 합니다.
+(등록하지 않을 경우 `"artifactId"`-`"version"` 으로 생성 됩니다.)
 
 [소스 보기](./sources/maven/step033/step008.xml)
 
@@ -798,3 +807,226 @@ JAR파일을 우리가 원하는 공간에 출력 할 것이기 때문에 `outpu
 << 이미지 1-19. 실행 결과 확인 >>
 
 ![이미지](./sources/maven/images/019.png)
+
+`install` 과 `deploy` 페이즈는 `war` 패키징이 끝난 다음 함께 처리 하도록 하겠습니다.
+
+### war packaging
+
+이번에는 war 패키징입니다.
+
+war는 jar와 동일하게 사용 가능합니다.
+
+다만 `webResources`가 추가 된다는 것만 알고 계시면 됩니다.
+
+그러면 이제 차근 차근 따라해 보세요.
+
+웹 기본 구조는 아래와 같습니다.
+
+- - -
+
+root
+ +-- webContent(contents)
+ |      +-- 정적 데이터들이 저장 되는 공간
+ |
+ +-- webResources(resources)
+ |      +-- 정적 데이터의 설정이 저장 되는 공간
+ |
+ +-- java(classes)
+ |      +-- 자바 파일이 저장 되는 공간
+ |
+ +-- javaResources(resources)
+        +-- 자바 설정 파일이 저장 되는 공간
+
+- - -
+
+그럼 먼저 기본적인 구조를 만들어 보도록 하겠습니다.
+
+<< 이미지 1-20. 웹 기본 구조 >>
+
+![이미지](./sources/maven/images/020.png)
+
+#### process-resources(war)
+
+먼저 리소스를 분리 하는 단계 부터 시작 합니다.
+
+리소스를 만들기 전 pom.xml에서 기본 루트를 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step001.xml)
+
+다음으로 프로젝트의 기본 정보를 등록 합니다.
+(`version`은 기본적으로 SNAPSHOT으로 등록 합니다.)
+
+[소스 보기](./sources/maven/step034/step002.xml)
+
+`name`과 `description`을 등록 하여 좀더 자세한 정보를 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step003.xml)
+
+다음으로 빌드를 위한 참조로 pom 모델의 버전을 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step004.xml)
+
+빌드를 위한 공간(build)을 생성 한 다음 `plugins`를 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step005.xml)
+
+`process-resources` 를 사용 하기 위하여 `resources` 플러그인을 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step006.xml)
+
+자바의 리소스를 먼저 등록해 주도록 하겠습니다.
+
+자바의 리소스는 `resources` 태그와 `resource` 태그를 사용하여 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step007.xml)
+
+<< 이미지 1-21. 자바 리소스 복사 >>
+
+![이미지](./sources/maven/images/021.png)
+
+#### compile(war)
+
+이제 자바를 컴파일 하여 적제 해 보도록 하겠습니다.
+
+컴파일을 위한 플러그인을 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step008.xml)
+
+메이븐은 3.8 버전 부터 기본 컴파일 버전을 1.6에 맞추고 있습니다.
+
+따라서 `compilerVersion` 또는 `source`과 `target`를 사용 하여 컴파일 할 버전을 명시 할 수 있습니다.
+
+[소스 보기](./sources/maven/step034/step009.xml)
+
+다음으로 자바 소스의 경로를 지정해 줍니다.
+
+자바 소스는 `sourceDirectory` 요소를 사용하여 등록 할 수 있습니다.
+
+[소스 보기](./sources/maven/step034/step010.xml)
+
+그럼 일단 `compile` 명령어를 사용하여 실행 하면 에러가 발생 하는 것을 확인 할 수 있습니다.
+
+<< 이미지 1-22. 컴파일 시 에러 발생 >>
+
+![이미지](./sources/maven/images/022.png)
+
+에러의 이유는 `HelloMavenServlet` 에서 tomcat의 라이브러리를 사용하였지만
+
+등록 되어 있지 않아서 입니다.
+
+따라서 메이븐에서 의존성을 등록해 주도록 하겠습니다.
+
+먼저 의존성은 `dependencies` 태그와 `dependency` 태그를 사용하여 등록 할 수 있습니다.
+(톰켓 의존성 정보는 [링크](https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-servlet-api/9.0.26)를 확인하세요)
+
+[소스 보기](./sources/maven/step034/step011.xml)
+
+<< 이미지 1-23. 컴파일 >>
+
+![이미지](./sources/maven/images/023.png)
+
+- - -
+
+scope
+
+의존성을 등록 할 때 사용한 scope에 관하여 궁금증이 생길 수 있을 것입니다.
+
+의존성 스코프는 아래와 같습니다.
+
+1. compile(기본 스코프)
+2. provided(지원 스코프)
+3. runtime(실행 스코프)
+4. test(테스트 스코프)
+5. system(시스템에 등록 된 스코프)
+
+먼저 `compile` 은 메이븐의 기본 scope입니다.
+
+모든 상황에서 라이브러리를 포함 시키며 실제 파일을 받아 복사 합니다.
+
+이번에 사용한 `provided`는 배포 하는 공간에서 기본적으로 지원하는 경우 사용 합니다.
+
+컴파일 시 에러가 난 `httpServlet` 의 경우 톰캣의 라이브러리를 사용하는 것입니다.
+
+하지만 그렇다고 톰캣의 라이브러리를 넣어 두면 실제 배포 시에 기존 톰캣의 라이브러리와 충돌이 날 수도 있습니다.
+
+따라서 이때 사용 하는 scope가 `provided` 입니다.
+
+`runtime`의 경우 컴파일 시 사용 하지 않으며 실제 런 타임에 동작 하도록 패키징 되는 scope 입니다
+
+다음으로 `test`는 테스트 스코프에서만 사용 되며 테스트 후 제거 되는 scope입니다.
+
+마지막으로 `system`의 경우 provided와 비슷한 유형의로써 JETTY와 같이 웹 서버와 라이브러리가 따로 관리 되는 환경에서 유용합니다.
+
+웹 서버는 `C:\`있지만 웹 서버의 라이브러리는 `D:\` 있을 경우 웹 서버가 직접 지원해 주지는 않지만
+
+지원하는 라이브러리가 있을 경우 사용하는 scope입니다.
+
+(system scope의 경우 systemPath를 사용하여 지원 라이브러리 경로를 지정할 수 있습니다.)
+
+```xml
+...
+<scope>system</scope>
+<systemPath>D:\Jetty/Lib</systemPath>
+...
+```
+
+- - -
+
+#### process-test-resources and test(war)
+
+이번에는 테스트와 테스트 리소스 입니다.
+
+웹 테스트는 스프링 웹 테스트 모듈을 사용하거나 여러 가지 기능을 사용하여 테스트 할 수 있지만
+
+추후 스프링 관련해서 작성 해 보도록 하겠습니다.
+
+자바 테스트이 경우 jar장에서 설명 했으므로 메이븐에서는 다루지 않으며 `skip`을 사용하여 테스트를 건너 뛰도록 하겠습니다.
+
+[소스 보기](./sources/maven/step034/step012.xml)
+
+#### package(war)
+
+먼저 war로 패키징 하기 위하여 빌드 정보의 `packaging` 을 war로 추가 합니다.
+
+[소스 보기](./sources/maven/step034/step013.xml)
+
+다음으로 war로 패키징 하기 위하여 war 플러그인을 등록 해 보겠습니다.
+
+[소스 보기](./sources/maven/step034/step014.xml)
+
+이제 웹을 서비스 하기 위하여 리소스들을 등록해 보도록 하겠습니다.
+(웹 리소스는 `warSourceDirectory` 를 사용하여 등록 합니다.)
+
+웹 리소스는 `컨텐츠 리소스`와 `설정 리소스`를 두가지를 모두 잡아 두도록 하겠습니다.
+
+[소스 보기](./sources/maven/step034/step015.xml)
+
+다음으로 배포 시 사용할 war명을 등록 합니다.
+
+war명은 finalName으로 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step016.xml)
+
+이제 메이븐을 실행 하여 결과를 확인 합니다.
+
+<< 이미지 1-24. war파일 확인 >>
+
+![이미지](./sources/maven/images/024.png)
+
+만일 tomcat이 설치 되어 있다면 배포 하여 해당 결과를 확인 할 수 있을 것입니다.
+
+<< 이미지 1-25. war 서비스 >>
+
+![이미지](./sources/maven/images/025.png)
+
+#### install
+
+install은 jar에서 다루지 않았으니 함께 다루도록 하겠습니다.
+
+install은 로컬 라이브러리 영역에(.m2/repository/) 파일을 배포 하는 행위를 말합니다.
+
+또한 만일 로컬의 서버가 올라가 있다면 해당 주소를 등록 하여 테스트를 위한 빌드를 할 수 있습니다.
+
+항상 그렇듯이 먼저 플러그인을 등록 하고 오겠습니다.
+
+[소스 보기](./sources/maven/step034/step017.xml)
