@@ -1,0 +1,25 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.maven.custom</groupId>
+    <artifactId>maven-custom-plugin</artifactId>
+    <version>1.0.0</version>
+    
+    <build>
+        <finalName>Prototype-Plugin</finalName>
+
+        <!-- 자바 소스 디렉토리 -->
+        <sourceDirectory>src</sourceDirectory>
+
+        <!-- 리소스 -->
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <excludes>
+                    <exclude>
+                        **/*.java
+                    </exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+</project>

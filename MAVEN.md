@@ -1309,3 +1309,48 @@ install은 로컬에 라이브러리를 등록 하는 일을 하였습니다.
 << 이미지 1-43. RELEASE DEPLOY >>
 
 ![이미지](./sources/maven/images/043.png)
+
+## 커스텀 플러그인(심화)
+
+이제 부터는 위에서 배운 내용을 좀 더 심화하여 작성해 보겠습니다.
+
+지금까지 사용만 했던 플러그인을 직접 만들어 보도록 하겠습니다.
+
+먼저 프로젝트를 하나 생성 한 다음 `src/org/maven/custom` 으로 자바 파일을 하나 생성 합니다.
+
+[자바 소스 보기](./sources/maven/step035/src/org/maven/custom/Step001.java)
+
+다음으로 pom.xml을 생성 하여 기본 골격을 등록 합니다.
+
+[pom 소스 보기](./sources/maven/step035/step001.xml)
+
+메이븐 플러그인을 개발하기 위해서는
+
+아파치에서 제공하는 `plugin-api`와 `plugin-annotation`을 가지고 생성해 보도록 하겠습니다.
+
+먼저 의존성으로 두 라이브러리를 등록 합니다.
+
+[pom 소스 보기](./sources/maven/step035/step002.xml)
+
+- - -
+
+maven-plugin-api : 메이븐 플러그인을 실행 시키기 위한 어댑터 라이브러리
+maven-plugin-annotations : 메이븐 플러그인을 생성 시키기 위한 지원 라이브러리
+
+- - -
+
+다음으로 자바에서 `AbstractMojo` 상속 하여 플러그인에서 실행 가능한 코드 묶음을 만들겠습니다.
+
+[자바 소스 보기](./sources/maven/step035/src/org/maven/custom/Step002.java)
+
+이제 메이븐에 의존할 페이즈와 골을 등록 해야 합니다.
+
+[자바 소스 보기](./sources/maven/step035/src/org/maven/custom/Step003.java)
+
+플러그인을 deploy를 하기 위하여 패키징을 `maven-plugin`로 등록 한 다음
+
+deploy 할 장소를 등록하여 deploy문을 실행 합니다.
+
+[pom 소스 보기](./sources/maven/step035/step003.xml)
+
+
