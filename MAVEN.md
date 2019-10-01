@@ -1025,8 +1025,287 @@ install은 jar에서 다루지 않았으니 함께 다루도록 하겠습니다.
 
 install은 로컬 라이브러리 영역에(.m2/repository/) 파일을 배포 하는 행위를 말합니다.
 
-또한 만일 로컬의 서버가 올라가 있다면 해당 주소를 등록 하여 테스트를 위한 빌드를 할 수 있습니다.
-
 항상 그렇듯이 먼저 플러그인을 등록 하고 오겠습니다.
 
 [소스 보기](./sources/maven/step034/step017.xml)
+
+메이븐은 기본적으로 아래와 같이 기본 저장소를 사용하고 있습니다.
+
+- - -
+
+메이븐 기본 저장소
+
+Windows 7  : `C:/Documents and Settings/<username>/.m2/repository`
+Windows 10 : `C:/Users/<username>/.m2/repository`
+Linux      : `/home/<username>/.m2/repository`
+Mac        : `/Users/<username>/.m2/repository`
+
+- - -
+
+`install` 페이즈를 실행 한 다음 해당 경로로 찾아 가서 파일이 존재 하는지 확인해 보도록 하겠습니다.
+
+<< 이미지 1-26. 로컬에 저장 된 war file >>
+
+![이미지](./sources/maven/images/026.png)
+
+#### deploy(pre)
+
+이번에는 원격에 파일을 업로드 하는 것을 해 보겠습니다.
+
+메이븐은 크게 3 종류의 저장소를 지니고 있습니다.
+
+1. 로컬 저장소
+2. 원격 저장소
+3. 중앙 저장소
+
+라이브러리를 다운로드 시에는 1 -> 2 -> 3 순으로 다운로드 하여 사용합니다.
+
+업로드 시에는 중앙 저장소를 제외한 원격 저장소 까지 업로드 할 수 있습니다.
+
+deploy는 저장소 챕터에서 다시 다루도록 하겠습니다.
+
+### repository
+
+메이븐의 저장소는 nexus를 사용하여 저장소 구축을 해 보도록 하겠습니다.
+
+#### 설치
+
+**아래 설치 방법은 윈도우를 기반으로 작성 된 설치 방법 입니다(리눅스 및 max의 경우는 다를 수 있습니다).**
+
+먼저 [링크](https://www.sonatype.com/oss-thank-you-win64.zip)로 접속 하여 nexus 3.x 버전 대를 다운로드 받습니다.
+
+<< 이미지 1-27. nexus at sonartype 파일 >>
+
+![이미지](./sources/maven/images/027.png)
+
+다운 받은 압축을 해제 한 다음 `nexus-{version}/etc/nexus-default.properties` 파일을 메모장으로 열어 아래와 같이
+
+`application-port`와 `nexus-context-path`를 원하는 곳으로 변경 합니다.
+
+이제 터미널을 실행하여 `bin`폴더로 찾아 들어 갑니다.
+
+그런 다음 `nexus.exe run` 또는 `./nexus run` 명령어를 실행하여
+
+nexus를 동작 시킵니다.
+
+만일 ram이 `2Gb 이하` 이거나 cpu가 `1.0G 이하` 일 경우 메모리 부족과 같은 에러를 발생 시킵니다.
+
+<< 이미지 1-28. nexus 실행 >>
+
+![이미지](./sources/maven/images/028.png)
+
+만일 아래와 같이 출력 된다면 올바를게 실행 된 것입니다.
+
+<< 이미지 1-29. nexus 실행 >>
+
+![이미지](./sources/maven/images/029.png)
+
+- - -
+
+> 초기 비밀 번호는 아래 경로에서 확인 할 수 있습니다.  
+>`sonatype-work\nexus3\admin.password` 파일에 확인 할 수 있습니다.
+
+- - -
+
+브라우저에서 등록한 `ip:port/context-path` 로 들어 가면 아래와 같은 화면을 확인 하실 수 있습니다.
+
+<< 이미지 1-30. nexus 접속 >>
+
+![이미지](./sources/maven/images/030.png)
+
+#### nexus 저장소
+
+이제 하나하나 설정해 보도록 하겠습니다.
+
+바퀴 모양의 버튼을 클릭하여 설정 화면으로 들어 갑니다.
+
+<< 이미지 1-31. nexus 설정 버튼 >>
+
+![이미지](./sources/maven/images/031.png)
+
+<< 이미지 1-32. nexus 설정 화면 >>
+
+![이미지](./sources/maven/images/032.png)
+
+여기서 우리가 살펴 봐야 할 것은 `maven-` 으로 시작하는 저장소 입니다.  
+(넥서스는 여러 저장소를 지원하며 추후 관련 자료를 등록 하도록 하겠습니다.)
+
+먼저 `maven-central` 입니다.
+
+maven-central 의 타입은 proxy로 등록 되어 있는 것을 확인 할 수 있습니다.
+
+메이븐 저장소의 타입은 아래와 같습니다.
+
+|타입명|설명|
+|:---|:---|
+|hosted|내부 저장소로서 동작 합니다.|
+|proxy|외부 리로스로 링크 될 경우 동작 합니다.|
+|group|hosted와 proxy등을 묶어 하나로 서비스 할 때 동작합니다.|
+
+먼저 저장소를 만들어 보겠습니다.
+
+`create repository` 버튼을 클릭 하여 `maven2(hosted)` 저장소를 선택 한 다음 다음과 같이 `release`로 등록 한 다음 create repository 버튼을 클릭 하여 저장소를 등록 합니다.
+
+<< 이미지 1-33. release-repository >>
+
+![이미지](./sources/maven/images/033.png)
+
+이번에는 `snapshot`으로 등록 하여 하나 더 등록 합니다.
+
+<< 이미지 1-34. snapshot-repository >>
+
+![이미지](./sources/maven/images/034.png)
+
+다음으로 두 저장소를 묶을 group을 하나 만들어 주도록 하겠습니다.
+
+저장소는 `maven2(group)` 으로 선택하여 준 다음 아래와 같이 등록 한 다음 저장 합니다.
+
+<< 이미지 1-35. group-repository >>
+
+![이미지](./sources/maven/images/035.png)
+
+다시 repository로 돌아 가서 본 화면입니다.
+
+<< 이미지 1-36. created Repositories >>
+
+![이미지](./sources/maven/images/036.png)
+
+#### nexus 권한
+
+넥서스의 권한은 아래 3단계를 가집니다.
+
+|권한|설명|
+|:---|:---|
+|privilege|단위별 소규모 권한|
+|Roles|소규모 단위의 그룹|
+|Users|중규모 단위의 그룹으로써 대규모 단위의 권한|
+
+먼저 privilege 부터 등록 하겠습니다.
+
+권한으로는 우리가 등록한 저장소의 모든 권한으로 등록 하겠습니다.
+
+(`prilieges` 를 선택 한 다음 `create privilege` 버튼을 선택하여 `Repository Admin`으로 등록 합니다.)
+
+<< 이미지 1-37. privileges registration >>
+
+![이미지](./sources/maven/images/037.png)
+
+위와 같은 방법으로 `release`와 `snapshot` 저장소의 권한을 등록 합니다.
+
+- - -
+
+privilege type
+
+권한의 타입은 아래 표와 같습니다.
+
+|타입|설명|
+|:---|:---|
+|Application|도메인과 같이 도규모 권한입니다|
+|Repository Admin|특정 한 저장소를 관리 하는 권한입니다|
+|Repository Content Selector|포맷을 사용하여 권한들을 그룹화 한 권한입니다|
+|Repository View|선택 한 저장소의 내용을 보여 주는 권한입니다|
+|Script|스크립트 실행과 관련 된 권한입니다|
+|Wildcard|패턴을 사용하여 권한들을 그룹화 한 권한입니다|
+
+- - -
+
+다음으로는 roles입니다.
+
+roles는 privileges를 그룹화 하여 분리 한 권한입니다.
+
+현재 우리는 privilege를 전체(`*`) 권한으로 주었지만
+
+실제 사용 시에는 `add, browse, create, delete, edit, read, update` 와 같이 각 쿼리로 분리 하여 사용 합니다.
+(좀더 자세한 내용은 [링크](https://help.sonatype.com/repomanager3/security/privileges)참조)
+
+이제 role을 등록 하여 보겠습니다.
+
+<< 이미지 1-38. role registration >>
+
+![이미지](./sources/maven/images/038.png)
+
+(role을 보면 알 수 있듯 여러 role을 조합하여 새로운 role을 만들 수 있습니다.)
+
+다음으로 사용자를 만들어 보겠습니다.
+
+사용자등록 시 많은 정보를 요구 하므로 적당히 등록 한 다음 등록 버튼을 눌러 등록 합니다.
+
+<< 이미지 1-39. user registration >>
+
+![이미지](./sources/maven/images/039.png)
+
+이제 모든 준비가 끝났습니다.
+
+### 메이븐 설정 파일 (settings.xml)
+
+설정 파일은 크게 두 가지로 분리 하여 설정 됩니다.
+
+1. global level({maven.home}/conf/settings.xml)
+    +-- 모든 사용자의 등록 적용 가능한 레벨의 설정
+2. user level(${user.home}/.m2/settings.xml)
+    +-- 각 사용자별 적용 가능한 레벨의 설정
+
+우리는 global에 등록 해 보도록 하겠습니다.
+
+다운 받은 메이븐의 폴더로 접근해 보면 `conf` 폴더 안에 `settings.xml`파일이 있는 것을 확인 할 수 있을 것입니다.
+
+<< 이미지 1-40. setting.xml >>
+
+![이미지](./sources/maven/images/040.png)
+
+`settings.xml` 에서는
+
+1. 플러그인 그룹(maven-{xxx}-plugin)을 등록 하거나
+2. 프록시 링크(maven-central)를 등록 하거나
+3. 서버 접속 정보등을 등록 할 수 있습니다.
+
+그 중 우리는 서버 접속 정보를 등록 해 보도록 하겠습니다.
+
+`servers` 태그를 보면 `server`로 시작 하는 태그를 복사 한 다음 `id`와 `username`과 `password`를 입력 하도록 합니다.
+
+`id`는 원하는 아이디를 주면 됩니다.
+
+`username, password`는 nexus에서 등록한 `user id` 와 `user password`를 등록 합니다.
+
+<< 이미지 1-41. server setting(setting.xml) >>
+
+![이미지](./sources/maven/images/041.png)
+
+이제 pom.xml로 돌아가 보도록 하겠습니다.
+
+#### deploy(확장)
+
+이번에는 deploy를 마져 진행하도록 하겠습니다.
+
+install은 로컬에 라이브러리를 등록 하는 일을 하였습니다.
+
+이번에는 서버(nexus)에 라이브러리를 등록해 보도록 하겠습니다.
+
+저장소에 deploy 하기 위해서는 `distributionManagement` 태그를 사용하여 저장소를 등록 하여야 합니다.
+
+[소스 보기](./sources/maven/step034/step018.xml)
+
+저장소는 `repository`태그를 등록 합니다.
+(snapshot type은 `snapshotRepository`로 등록 합니다.)
+
+[소스 보기](./sources/maven/step034/step019.xml)
+
+다음으로 snapshot repository의 url(넥서스 접속 url) 와 id(settings.xml에 등록한 고유 id)를 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step020.xml)
+
+이제 release repository도 같이 등록 합니다.
+
+[소스 보기](./sources/maven/step034/step021.xml)
+
+그런 다음 -SNAPSHOT을 제거 한 다음 deploy명령어를 실행 해 보세요.
+
+[소스 보기](./sources/maven/step034/step022.xml)
+
+<< 이미지 1-42. SNAPSHOT DEPLOY >>
+
+![이미지](./sources/maven/images/042.png)
+
+<< 이미지 1-43. RELEASE DEPLOY >>
+
+![이미지](./sources/maven/images/043.png)
