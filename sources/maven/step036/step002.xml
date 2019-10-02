@@ -1,0 +1,62 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.maven.produce.plugins</groupId>
+    <artifactId>maven-produce-plugin</artifactId>
+    <version>1.0.0</version>
+    <packaging>maven-plugin</packaging>
+
+    <properties>
+        <java_home>src</java_home>
+        <resource_path>src</resource_path>
+        <deployment.id>deployment</deployment.id>
+        <deployment.url>http://192.168.0.154:12700/nexus/repository/mvn-snapshot/</deployment.url>
+        <plugin-versions.api-version>3.0</plugin-versions.api-version>
+        <plugin-versions.annotation-version>3.4</plugin-versions.annotation-version>
+    </properties>
+
+
+    <!-- 배포를 위한 설정 정보 등록 -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>${deployment.id}</id>
+            <url>${deployment.url}</url>
+        </snapshotRepository>
+
+        <repository>
+            <id>${deployment.id}</id>
+            <url>${deployment.url}</url>
+        </repository>
+    </distributionManagement>
+
+    <!-- 플러그인을 생성하기 위한 의존성 등록 -->
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${plugin-versions.api-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-annotations</artifactId>
+            <version>${plugin-versions.annotation-version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- 자바 소스 -->
+        <sourceDirectory>${java_home}</sourceDirectory>
+
+        <!-- 자바 리소스 -->
+        <resources>
+            <resource>
+                <directory>${resource_path}</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+    
+</project>

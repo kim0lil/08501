@@ -7,6 +7,8 @@ import org.apache.maven.plugins.annotations.*;
 /**
  * defaultPhase : phase
  * name : goal
+ * @phase=validate
+ * @goal=hello
  */
 @Mojo(defaultPhase=LifecyclePhase.VALIDATE, name="hello")
 public class Step003 extends AbstractMojo {

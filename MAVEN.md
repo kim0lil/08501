@@ -275,7 +275,7 @@ ant의 경우 빌드를 하기 위해서는 해당 기능을 직접 등록 하�
 
 1. default Lifecycle
     1. validate : 프로젝트가 올바른지 확인하고 필요한 모든 정보를 사용할 수 있습니다.
-    2. initialize : 빌드 상태 초기화 (예 : 속성을 설정하거나 디렉토리를 만듭니다.
+    2. initialize : 빌드 상태 초기화 (예 : 속성을 설정하거나 디렉토리를 만듭니다.)
     3. generate-sources : 컴파일에 포함 할 소스 코드를 생성합니다.
     4. process-sources : 소스 코드를 처리 (예 : 값을 필터링)
     5. generate-resources : 패키지에 포함 할 리소스를 생성합니다.
@@ -1353,4 +1353,98 @@ deploy 할 장소를 등록하여 deploy문을 실행 합니다.
 
 [pom 소스 보기](./sources/maven/step035/step003.xml)
 
+플러그인을 사용 할 pom을 하나 더 생성 한 다음 기본 설정을 등록 합니다.
+
+[pom 소스 보기](./sources/maven/step035/step004.xml)
+
+사용할 플러그인을 등록 합니다.
+(플러그인은 이전에 우리가 만든 groupId, artifactId, version을 등록 합니다.)
+
+[pom 소스 보기](./sources/maven/step035/step005.xml)
+
+커스텀한 플러그인을 사용하기 위하여 이전에 업로드 한 저장소(repository)를 `pluginRepository`로 등록 합니다.
+
+[pom 소스 보기](./sources/maven/step035/step006.xml)
+
+실행 하여 결과 값을 확인 합니다.  
+(pom.xml에 실행 문을 등록 하는 방법과 실행 시 goal을 직접 등록 할 수 있습니다.)
+
+```s
+mvn -f step006.xml org.maven.custom:maven-custom-plugin:1.0.0:hello
+```
+
+또는
+
+아래와 같이 실행 할 기본 goal을 등록 한 다음
+
+[pom 소스 보기](./sources/maven/step035/step007.xml)
+
+```s
+mvn -f step007.xml phase
+```
+
+와 같이 실행 하여 결과를 확인 합니다.
+
+이번에는 설정 값을 가지는 플러그인을 하나 만들어 보도록 하겠습니다.
+
+먼저 기본적인 프로젝트 구조를 생성합니다.
+
+<< 이미지 1-45. 플러그인 기본 구조 >>
+
+![이미지](./sources/maven/images/045.png)
+
+다음으로 pom.xml의 기본 구조를 등록 합니다.
+
+[pom 소스 보기](./sources/maven/step036/step001.xml)
+
+### 설정 적용
+
+메이븐은 `런타임 시 설정을 분리(fragment)하거나 사용 될 환경을 설정` 한다고 말한적이 있습니다.
+
+이번에는 설정을 분리 하거나 설정을 등록 하여 사용하는 법에 관하여 다루어 보겠습니다.
+
+먼저 설정은 `properties`와 `<key>value</key>`로 등록 할 수 있습니다.
+
+만일 설정 값을 분리 할 경우 아래와 같이 사용 할 수 있습니다.
+
+[pom 소스 보기](./sources/maven/step036/step002.xml)
+
+또한 아래와 같이 실행 시 `-D설정명=설정값`으로 설정값을 적용 시킬 수도 있습니다.
+
+<< 이미지 1-46. 메이븐 실행 시 설정값 적용 >>
+
+![이미지](./sources/maven/images/045.png)
+
+이번에는 좀더 크게 분리 해 보도록 하겠습니다.
+
+배포 하는 정보(deployment)의 설정 값을 모듈로 분리 하여 `prod`와 `local`로 분리 해 보도록 하겠습니다.
+
+[pom 소스 보기](./sources/maven/step036/step003.xml)
+
+기본 프로파일을 등록 하기 위해서는 2가지 방법으로 등록 할 수 있습니다.
+
+1. pom.xml 파일에 activation 을 이용하여 적용
+2. settings.xml 파일에 기본 profile을 등록
+
+#### pom.xml에 activation 적용
+
+pom.xml에 activation을 적용 하는 방법은 아래와 같습니다.
+
+1. 기본 profile을 적용 하기 위해서는 activeByDefault을 사용 하여 기본 profile 적용
+2. profile에 activation을 등록 한 다음 조건을 등록 하여 profile을 적용
+
+먼저 기본 프로파일을 적용해 보도록 하겠습니다.
+
+[pom 소스 보기](./sources/maven/step036/step004.xml)
+
+이제 조건을 추가 하여 적용해 보도록 하겠습니다.
+
+만일 jdk 1.8버전 이전과 1.8 버전 이후를 다르게 적용 하기 위해서는 아래와 같이 적용 할 수 있습니다.
+(적용 정보는 [링크](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html)를 확인하세요)
+
+[pom 소스 보기](./sources/maven/step036/step005.xml)
+
+만일 외부로 추출 하기 위해서는 메이븐의 기본 설정 값으로는 부족합니다.
+
+따라서 외부 플러그인을 사용해 보도록 하겠습니다.
 

@@ -4,9 +4,8 @@
 
 Ant, Maven, Gradle 과 같이 자동화 툴을 배워 볼 생각입니다.
 
-먼서 살펴볼 것은 ANT 빌더 입니다.  
-[ANT](./ANT.md)
+먼서 살펴볼 것은 ANT build (build script) 입니다.  
+[자세히](./ANT.md)
 
-먼서 살펴볼 것은 MAVEN 빌더 입니다.  
-[MAVEN](./MAVEN.md)
-
+다음으로 살펴볼 것은 MAVEN (build tool) 입니다.  
+[자세히](./MAVEN.md)
