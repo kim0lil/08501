@@ -8,8 +8,10 @@
     <properties>
         <java_home>src</java_home>
         <resource_path>src</resource_path>
-        <deployment.id>deployment</deployment.id>
-        <deployment.url>http://192.168.0.154:12700/nexus/repository/mvn-snapshot/</deployment.url>
+        <deployment.snapshot.id>deployment</deployment.snapshot.id>
+        <deployment.release.id>deployment</deployment.release.id>
+        <deployment.snapshot.url>http://192.168.0.154:12700/nexus/repository/mvn-snapshot/</deployment.snapshot.url>
+        <deployment.release.url>http://192.168.0.154:12700/nexus/repository/mvn-release/</deployment.release.url>
         <plugin-versions.api-version>3.0</plugin-versions.api-version>
         <plugin-versions.annotation-version>3.4</plugin-versions.annotation-version>
     </properties>
@@ -18,13 +20,13 @@
     <!-- 배포를 위한 설정 정보 등록 -->
     <distributionManagement>
         <snapshotRepository>
-            <id>${deployment.id}</id>
-            <url>${deployment.url}</url>
+            <id>${deployment.snapshot.id}</id>
+            <url>${deployment.snapshot.url}</url>
         </snapshotRepository>
 
         <repository>
-            <id>${deployment.id}</id>
-            <url>${deployment.url}</url>
+            <id>${deployment.release.id}</id>
+            <url>${deployment.release.url}</url>
         </repository>
     </distributionManagement>
 

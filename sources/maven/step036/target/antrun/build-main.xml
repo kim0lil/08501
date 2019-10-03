@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="maven-antrun-" default="main"  >
 <target name="main">
-  <echo message="bbb lee ${jdk}"/>
+  <echo message="/home/src A ${jdk}"/>
 </target>
 </project>

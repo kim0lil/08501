@@ -1413,7 +1413,7 @@ mvn -f step007.xml phase
 
 << 이미지 1-46. 메이븐 실행 시 설정값 적용 >>
 
-![이미지](./sources/maven/images/045.png)
+![이미지](./sources/maven/images/046.png)
 
 이번에는 좀더 크게 분리 해 보도록 하겠습니다.
 
@@ -1439,12 +1439,48 @@ pom.xml에 activation을 적용 하는 방법은 아래와 같습니다.
 
 이제 조건을 추가 하여 적용해 보도록 하겠습니다.
 
-만일 jdk 1.8버전 이전과 1.8 버전 이후를 다르게 적용 하기 위해서는 아래와 같이 적용 할 수 있습니다.
-(적용 정보는 [링크](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html)를 확인하세요)
+만일 jdk 1.8버전 이전과 1.8 버전 이후를 다르게 적용 하기 위해서는 아래와 같이 적용 할 수 있습니다.  
+(자세한 정보는 [링크](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html)를 확인하세요)
 
 [pom 소스 보기](./sources/maven/step036/step005.xml)
 
-만일 외부로 추출 하기 위해서는 메이븐의 기본 설정 값으로는 부족합니다.
+이번에는 settings.xml파일을 사용하여 profile을 로드해 보도록 하겠습니다.
 
-따라서 외부 플러그인을 사용해 보도록 하겠습니다.
+`.m2`경로에 있는 `settings.xml` 파일 또는 메이븐을 설치한 conf 하위 폴더에 settings.xml 파일을 복사해 오도록 하겠습니다.
+
+[settings 소스 보기](./sources/maven/step036/step006.xml)
+
+이곳에서 프로파일을 등록 할 수 있습니다.
+
+먼저 settings.xml에 프로파일을 등록 합니다.
+
+[settings 소스 보기](./sources/maven/step036/step007.xml)
+
+이제 등록 한 프로파일을 기본 프로파일로 등록 합니다.
+
+[settings 소스 보기](./sources/maven/step036/step008.xml)
+
+이제 프로젝트로 돌아 가서 파라미터를 사용한 플러그인을 만들어 보도록 하겠습니다.
+
+먼저 아래와 같이 설정 파일을 추가 합니다.
+
+<< 이미지 1-47. 설정 파일 분리 >>
+
+![이미지](./sources/maven/images/047.png)
+
+다음으로 자바 파일을 수정 해 보도록 하겠습니다.
+
+자바 파일은 goal과 기본 phase를 등록 한 다음 `@parameter`를 사용 하여 인자를 받을 준비를 합니다.
+
+[자바 소스 보기](./sources/maven/step036/src/org/maven/custom/Step002.java)
+
+이제 플러그인을 서버에 배포 합니다.
+
+```s
+mvn -f step005.xml deploy
+```
+
+<< 이미지 1-48. plugin deploy >>
+
+![이미지](./sources/maven/images/048.png)
 

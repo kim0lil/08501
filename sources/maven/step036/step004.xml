@@ -12,16 +12,20 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <deployment.id>deployment</deployment.id>
-                <deployment.url>http://192.168.0.154:12700/nexus/repository/mvn-snapshot/</deployment.url>
+                <deployment.snapshot.id>deployment</deployment.snapshot.id>
+                <deployment.release.id>deployment</deployment.release.id>
+                <deployment.snapshot.url>http://192.168.0.154:12700/nexus/repository/mvn-snapshot/</deployment.snapshot.url>
+                <deployment.release.url>http://192.168.0.154:12700/nexus/repository/mvn-release/</deployment.release.url>
             </properties>
         </profile>
 
         <profile>
             <id>prod</id>
             <properties>
-                <deployment.id>administrator</deployment.id>
-                <deployment.url>http://wejustit:27250/nexus/repository/mvn-snapshot/</deployment.url>
+                <deployment.snapshot.id>administrator</deployment.snapshot.id>
+                <deployment.release.id>administrator</deployment.release.id>
+                <deployment.snapshot.url>http://192.168.0.154:12700/nexus/repository/maven-snapshot/</deployment.snapshot.url>
+                <deployment.release.url>http://192.168.0.154:12700/nexus/repository/maven-release/</deployment.release.url>
             </properties>
         </profile>
     </profiles>
@@ -37,13 +41,13 @@
     <!-- 배포를 위한 설정 정보 등록 -->
     <distributionManagement>
         <snapshotRepository>
-            <id>${deployment.id}</id>
-            <url>${deployment.url}</url>
+            <id>${deployment.snapshot.id}</id>
+            <url>${deployment.snapshot.url}</url>
         </snapshotRepository>
 
         <repository>
-            <id>${deployment.id}</id>
-            <url>${deployment.url}</url>
+            <id>${deployment.release.id}</id>
+            <url>${deployment.release.url}</url>
         </repository>
     </distributionManagement>
 
