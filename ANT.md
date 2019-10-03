@@ -66,9 +66,9 @@ echo task를 작성하는 방법은 echo 태그를 생성하여 task를 실행�
 
 message 속성 값을 사용 하지 않고 태그의 값으로 등록 하여 출력 할 수 있습니다.
 
-[소스 보기](./sources/ant/step007.xml)
-
 ```
+
+[소스 보기](./sources/ant/step007.xml)
 
 << 이미지 1-1. ant 첫 빌드 실행 >>
 
