@@ -1,0 +1,7 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.maven.produce.plugins</groupId>
+    <artifactId>maven-produce-plugin</artifactId>
+    <version>1.0.0</version>
+    
+</project>

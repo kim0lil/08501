@@ -1,0 +1,19 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.maven.produce.plugins</groupId>
+    <artifactId>maven-produce-plugin</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <plugin-id>deployment</plugin-id>
+        <plugin-url>http://192.168.0.154:12700/nexus/repository/mvn-snapshot/</plugin-url>
+    </properties>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>${plugin-id}</id>
+            <url>${plugin-url}</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

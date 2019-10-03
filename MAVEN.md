@@ -1472,6 +1472,8 @@ pom.xml에 activation을 적용 하는 방법은 아래와 같습니다.
 
 자바 파일은 goal과 기본 phase를 등록 한 다음 `@parameter`를 사용 하여 인자를 받을 준비를 합니다.
 
+(property : 인자로 받을 설정 값, defaultValue : 빈 값일 경우 기본 값)
+
 [자바 소스 보기](./sources/maven/step036/src/org/maven/custom/Step002.java)
 
 이제 플러그인을 서버에 배포 합니다.
@@ -1484,3 +1486,36 @@ mvn -f step005.xml deploy
 
 ![이미지](./sources/maven/images/048.png)
 
+이제 플러그인을 실행 하는 코드를 작성해 보도록 하겠습니다.
+
+먼저 시작은 역시 파일을 만들고 기본 정보를 등록 하는 것 부터 시작해 보겠습니다.
+
+[pom 소스 보기](./sources/maven/step036/step009.xml)
+
+이제 플러그인을 사용하기 위하여 플러그인 저장소를 등록해 보겠습니다.  
+(id와 url은 설정 정보로 등록 하여 불러 오도록 하겠습니다.)
+
+[pom 소스 보기](./sources/maven/step036/step010.xml)
+
+다음으로 build 태그 안애 사용 할 플러그인을 등록 합니다.  
+(실행을 위하여 기본 골을 등록 하였습니다.)
+
+[pom 소스 보기](./sources/maven/step036/step011.xml)
+
+실행하여 결과 값을 확인 합니다.
+
+<< 이미지 1-49. 설정 값 없이 플러그인 실행 >>
+
+![이미지](./sources/maven/images/049.png)
+
+이제 설정 값을 추가 하여 보겠습니다.
+
+[pom 소스 보기](./sources/maven/step036/step012.xml)
+
+<< 이미지 1-50. 설정값을 포함하여 플러그인 실행 >>
+
+![이미지](./sources/maven/images/050.png)
+
+이로써 메이븐을 내용은 끝내겠습니다.
+
+다음은 그래들 빌드를 다루면서 어떻게 메이븐의 장점과 ANT의 장점을 잘 융합 하였는지 알아 보도록 하겠습니다.
