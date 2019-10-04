@@ -1498,7 +1498,7 @@ mvn -f step005.xml deploy
 [pom 소스 보기](./sources/maven/step036/step010.xml)
 
 다음으로 build 태그 안애 사용 할 플러그인을 등록 합니다.  
-(실행을 위하여 기본 골을 등록 하였습니다.)
+(실행을 위하여 실행 기본 골을 등록 하였습니다.)
 
 [pom 소스 보기](./sources/maven/step036/step011.xml)
 
@@ -1512,7 +1512,7 @@ mvn -f step005.xml deploy
 
 [pom 소스 보기](./sources/maven/step036/step012.xml)
 
-<< 이미지 1-50. 설정값을 포함하여 플러그인 실행 >>
+<< 이미지 1-50. 설정 값을 포함하여 플러그인 실행 >>
 
 ![이미지](./sources/maven/images/050.png)
 

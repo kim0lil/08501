@@ -1,0 +1,19 @@
+
+task('echoProcess')
+tasks.create('echoSubProcess')
+
+task echo {
+    dependsOn echoProcess, echoSubProcess
+}
+
+echo.doFirst {
+    println 'Hello Gradle'
+}
+
+echoProcess.doLast {
+    println 'echo Process :: '
+}
+
+echoSubProcess.doLast {
+    println '[echo SubProcess]'
+}

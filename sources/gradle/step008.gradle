@@ -1,0 +1,32 @@
+task('echoProcess')
+tasks.create('echoSubProcess')
+
+task echo {
+    dependsOn echoProcess, echoSubProcess
+}
+
+task propertiesTask {
+    doLast {
+        String sMessage = 'is Local Variable'
+
+        println "$sMessage"
+    }
+}
+
+def    sName    = 'with Justin'
+String sVersion = '1.0.0-BETA'
+
+echo.dependsOn echoProcess, echoSubProcess, propertiesTask
+
+echo.doFirst {
+    
+    println "Hello Gradle $sName $sVersion $sMessage"
+}
+
+echoProcess.doLast {
+    println "echo Process ( $sName $sVersion ) "
+}
+
+echoSubProcess.doLast {
+    println "[echo SubProcess ( $sName $sVersion )]"
+}

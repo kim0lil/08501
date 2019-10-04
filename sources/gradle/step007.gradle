@@ -1,0 +1,23 @@
+task('echoProcess')
+tasks.create('echoSubProcess')
+
+task echo {
+    dependsOn echoProcess, echoSubProcess
+}
+
+String sName = 'with Justin'
+def sVersion = '1.0.0-BETA'
+
+echo.dependsOn echoProcess, echoSubProcess
+
+echo.doFirst {
+    println "Hello Gradle $sName-$sVersion"
+}
+
+echoProcess.doLast {
+    println "echo Process ( $sName-$sVersion ) "
+}
+
+echoSubProcess.doLast {
+    println "[echo SubProcess ( $sName-$sVersion )]"
+}

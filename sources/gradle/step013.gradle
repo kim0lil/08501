@@ -1,0 +1,9 @@
+// 배열 할당 시
+def names = ['mina', 'rulru', 52, 12.3]
+println "$names"
+
+// 메소드를 실행 시키고 싶은 경우
+print "for list i..${names.size}\n"
+names.each{e -> println e}
+
+print "for list i..$names.size"
