@@ -1,23 +1,48 @@
-task('echoProcess')
-tasks.create('echoSubProcess')
+defaultTasks 'echo'
 
-task echo {
-    dependsOn echoProcess, echoSubProcess
+task echo
+task echoProcess {
+    
+    println '=================================='
+    println '>> configuration [echoProcess]  <<'
+    println '=================================='
+
+ }
+
+task echoSubProcess {
+
+    println '===================================='
+    println '>> configuration [echoSubProcess] <<'
+    println '===================================='
+
+    doFirst {
+        print 'runned!!'
+    }
+
+    doFirst {
+        print 'echoSubProcess is '
+    }
+
+    doLast {
+        println ''
+    }
+
 }
 
-String sName = 'with Justin'
-def sVersion = '1.0.0-BETA'
+echo.doLast {
 
-echo.dependsOn echoProcess, echoSubProcess
+    println 'Hello Gradle'
+}
+
+echo.doLast {
+    println '!!';
+}
 
 echo.doFirst {
-    println "Hello Gradle $sName-$sVersion"
+    println '***'
 }
 
 echoProcess.doLast {
-    println "echo Process ( $sName-$sVersion ) "
-}
 
-echoSubProcess.doLast {
-    println "[echo SubProcess ( $sName-$sVersion )]"
+    println 'echoProcess is runned!!'
 }

@@ -1,5 +1,1 @@
 task echo
-
-echo.doFirst {
-    println 'Hello Gradle'
-}

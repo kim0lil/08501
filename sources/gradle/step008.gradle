@@ -1,32 +1,56 @@
-task('echoProcess')
-tasks.create('echoSubProcess')
+defaultTasks 'echo'
 
-task echo {
-    dependsOn echoProcess, echoSubProcess
+task echo(dependsOn:':echoProcess')
+task echoProcess {
+    
+    println '=================================='
+    println '>> configuration [echoProcess]  <<'
+    println '=================================='
+
+ }
+// 이렇게 등록 할 수도 있습니다.
+// echo.dependsOn echoProcess
+// echo.dependsOn ':echoProcess'
+echoProcess.dependsOn{
+
+    tasks.findAll { task -> task.name.startsWith('echoSub') }
 }
 
-task propertiesTask {
-    doLast {
-        String sMessage = 'is Local Variable'
+task echoSubProcess {
 
-        println "$sMessage"
+    println '===================================='
+    println '>> configuration [echoSubProcess] <<'
+    println '===================================='
+
+    doFirst {
+        print 'runned!!'
     }
+
+    doFirst {
+        print 'echoSubProcess is '
+    }
+
+    doLast {
+        println ''
+    }
+
 }
 
-def    sName    = 'with Justin'
-String sVersion = '1.0.0-BETA'
+echo.doLast {
 
-echo.dependsOn echoProcess, echoSubProcess, propertiesTask
+    println 'Hello Gradle'
+}
+
+echo.doLast {
+    println '!!';
+}
 
 echo.doFirst {
-    
-    println "Hello Gradle $sName $sVersion $sMessage"
+    println '***'
 }
 
 echoProcess.doLast {
-    println "echo Process ( $sName $sVersion ) "
+
+    println 'echoProcess is runned!!'
 }
 
-echoSubProcess.doLast {
-    println "[echo SubProcess ( $sName $sVersion )]"
-}

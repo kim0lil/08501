@@ -1,12 +1,8 @@
+defaultTasks 'echo'
+
 task echo
-task('echoProcess')
 
-echo.dependsOn echoProcess
+echo.doLast {
 
-echo.doFirst {
     println 'Hello Gradle'
-}
-
-echoProcess.doLast {
-    println 'echo Process :: '
 }

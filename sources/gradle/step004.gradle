@@ -1,10 +1,6 @@
 task echo
-task('echoProcess')
 
-echo.doFirst {
+echo.doLast {
+
     println 'Hello Gradle'
-}
-
-echoProcess.doLast {
-    println 'echo Process :: '
 }

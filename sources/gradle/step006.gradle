@@ -1,19 +1,21 @@
+defaultTasks 'echo'
 
-task('echoProcess')
-tasks.create('echoSubProcess')
+task echo
+// task를 등록 하는 방법은 아래와 같습니다.
+// task('echo')
+// task 'echo'
+// task echo
+// tasks.create(name: 'echo')
 
-task echo {
-    dependsOn echoProcess, echoSubProcess
-}
+echo.doLast {
 
-echo.doFirst {
     println 'Hello Gradle'
 }
 
-echoProcess.doLast {
-    println 'echo Process :: '
+echo.doLast {
+    println '!!';
 }
 
-echoSubProcess.doLast {
-    println '[echo SubProcess]'
+echo.doFirst {
+    println '***'
 }
