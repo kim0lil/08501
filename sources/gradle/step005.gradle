@@ -5,4 +5,4 @@ task echo
 echo.doLast {
 
     println 'Hello Gradle'
-}
+} 

@@ -18,7 +18,7 @@ echoProcess.dependsOn{
 
 task echoSubProcess {
 
-    println '===================================='
+    println '====================================' 
     println '>> configuration [echoSubProcess] <<'
     println '===================================='
 

@@ -22,7 +22,7 @@ task echoSubProcess {
     doFirst {
         print 'echoSubProcess is '
     }
-
+  
     doLast {
         println ''
     }

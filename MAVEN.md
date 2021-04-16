@@ -651,7 +651,7 @@ target은 메이븐의 기본 outputdirectory로 설정 되어 있는 빌드 루
 ![이미지](./sources/maven/images/010.png)
 
 만일 자바 파일에도 리소스가 등록 되어 있다면 아래와 같이
-
+ 
 자바 파일을 제외한 모든 리소스를 추가적으로 리소스에 등록 할 수 있습니다.
 
 [소스 보기](./sources/maven/step031/step010.xml)
